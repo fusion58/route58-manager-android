@@ -8,7 +8,7 @@ plugins {
 android {
     compileSdk 35
     defaultConfig {
-        applicationId 'org.traccar.manager'
+        applicationId 'com.fusion58.route58.manager'
         minSdkVersion 21
         targetSdkVersion 35
         versionCode 42

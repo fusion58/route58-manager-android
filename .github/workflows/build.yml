@@ -1,9 +1,9 @@
 name: Build APK
 
 # Compila la app Route58 (fork del Traccar Manager) en cada cambio, para verificar que
-# arma bien tras el branding. Usa el flavor `regular` (sin Firebase) para no depender del
-# google-services.json — el flavor `google` (push) se activa cuando exista el proyecto
-# Firebase propio. El APK de depuración queda como artefacto descargable de la corrida.
+# arma bien tras el branding. Compila el flavor `google` (con Firebase/push), que ya tiene
+# su `google-services.json` propio (proyecto Firebase route58-26b39, en
+# environment/google-services/). El APK de depuración queda como artefacto descargable.
 
 on:
   push:
@@ -29,12 +29,12 @@ jobs:
       - name: Configurar Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Compilar APK de depuración (flavor regular)
-        run: ./gradlew assembleRegularDebug --stacktrace
+      - name: Compilar APK de depuración (flavor google, con push)
+        run: ./gradlew assembleGoogleDebug --stacktrace
 
       - name: Publicar el APK como artefacto
         uses: actions/upload-artifact@v4
         with:
           name: route58-manager-debug
-          path: app/build/outputs/apk/regular/debug/*.apk
+          path: app/build/outputs/apk/google/debug/*.apk
           if-no-files-found: warn

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542747016920",
+    "project_id": "route58-26b39",
+    "storage_bucket": "route58-26b39.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542747016920:android:191df9a7b6631109d2e1ad",
+        "android_client_info": {
+          "package_name": "com.fusion58.route58.manager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQzUTwI5DsH6M-CgSCFFzErZEEE3cSBKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

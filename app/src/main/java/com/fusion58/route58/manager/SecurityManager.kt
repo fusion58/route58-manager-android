@@ -1,5 +1,5 @@
 /*
- * Copyright 2022 Anton Tananaev (anton@traccar.org)
+ * Route58 Manager para Android (Fusion58). Basado en software libre.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.traccar.manager
+package com.fusion58.route58.manager
 
 import android.app.Activity
 import androidx.biometric.BiometricPrompt

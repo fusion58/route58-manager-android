@@ -1,6 +1,6 @@
-name: Build APK
+name: Build Route58 Manager
 
-# Compila la app Route58 (fork del Traccar Manager) en cada cambio, para verificar que
+# Compila la app Route58 Manager en cada cambio, para verificar que
 # arma bien tras el branding. Compila el flavor `google` (con Firebase/push), que ya tiene
 # su `google-services.json` propio (proyecto Firebase route58-26b39, en
 # environment/google-services/). El APK de depuración queda como artefacto descargable.

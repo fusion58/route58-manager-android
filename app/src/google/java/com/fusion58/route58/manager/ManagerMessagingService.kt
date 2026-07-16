@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 - 2021 Anton Tananaev (anton.tananaev@gmail.com)
+ * Route58 Manager para Android (Fusion58). Basado en software libre.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.traccar.manager
+package com.fusion58.route58.manager
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager

@@ -1,47 +1,23 @@
-# Contributing to Traccar
+# Cómo contribuir a Route58 Manager
 
-Please make sure you read this guide before commenting on any issue or creating a new issue or pull request.
+Gracias por tu interés en aportar a la app móvil de **Route58** (Fusión58). Lee esta guía antes de abrir un issue o un Pull Request.
 
-Before asking anything, please search for an answer in:
+## Antes de abrir un issue
 
-- [Traccar documentation](https://www.traccar.org/documentation/)
-- [Traccar forums](https://www.traccar.org/forums/)
-- Relevant repositories (see below)
-- [Google Search](https://www.google.com/)
+Usa los issues solo para reportes de fallas, solicitudes de funcionalidad y discusiones de código. Revisa primero que no exista ya un issue con lo mismo.
 
-GitHub issues should be used ONLY for feature requests, code discussions and bug reports. For general discussions please use [Traccar forums](https://www.traccar.org/forums/).
+## Reportes de fallas
 
-There are multiple Traccar projects. If you create a new issue you MUST do it in the relevant repository:
+- Verifica que la falla se reproduce con la última versión de la app.
+- Da todos los detalles que puedas: fragmentos de log, versión de Android, modelo del teléfono y pasos para reproducirla.
 
-- [Traccar Server](https://github.com/tananaev/traccar/issues)
-- [Traccar Web Interface](https://github.com/tananaev/traccar-web/issues)
-- [Traccar Client for Android](https://github.com/tananaev/traccar-client-android/issues)
-- [Traccar Client for iOS](https://github.com/tananaev/traccar-client-ios/issues)
-- [Traccar Manager for Android](https://github.com/tananaev/traccar-manager-android/issues)
-- [Traccar Manager for iOS](https://github.com/tananaev/traccar-manager-ios/issues)
+## Solicitudes de funcionalidad
 
-If you are not sure where your issue belongs to, please use Traccar Server main repository.
-
-If you want to discuss something that applies to both Android and iOS apps, please use Android repository.
-
-## Bug Reports
-
-Before creating a bug report make sure that you have tested latest official release with default configuration.
-
-Only create a bug report issue if you are confident that there is a problem in Traccar software.
-
-Provide as much details as possible, including log fragments, operating system and hardware information.
-
-## Feature Requests
-
-Before creating a feature request make sure that the feature or modification that you are requesting is not yet implemented.
-
-Search reposiroty to ensure that there is no existing issues for your request. If there is, add a new comment on that issue.
-
-Provide as much details as possible, including use case for your feature and any benefits that you can think of.
+- Confirma que la funcionalidad no esté ya implementada.
+- Explica el caso de uso y el beneficio que aporta.
 
 ## Pull Requests
 
-If you want to contribute some code to Traccar, it is recommended to discuss your solution with maintainers before starting any work.
-
-Any code that you want to contribute must be of high quality and follow existing code patterns and styles.
+- Conviene discutir la solución con el equipo antes de empezar a trabajar.
+- El código debe ser de buena calidad y seguir los patrones y el estilo ya presentes en el repo.
+- Mensajes de commit en español (tuteo), siguiendo Conventional Commits.

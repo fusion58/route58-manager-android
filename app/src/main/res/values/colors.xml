@@ -6,4 +6,7 @@
     <color name="primary_dark">#C96A15</color>  <!-- naranja oscuro (barra de estado) -->
     <color name="accent">#F50057</color>        <!-- magenta (el "58") -->
 
+    <!-- Fondo del ícono adaptable = oscuro corporativo (igual que el master del logo). -->
+    <color name="ic_launcher_background">#0D0C0A</color>
+
 </resources>

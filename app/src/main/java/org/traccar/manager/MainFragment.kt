@@ -73,6 +73,9 @@ class MainFragment : WebViewFragment() {
         if ((activity.applicationInfo.flags and ApplicationInfo.FLAG_DEBUGGABLE) != 0) {
             WebView.setWebContentsDebuggingEnabled(true)
         }
+        // Fondo oscuro corporativo mientras el login carga, para que no haya flash blanco
+        // entre el splash y la web (#568).
+        webView.setBackgroundColor(0xFF0D0C0A.toInt())
         webView.webViewClient = webViewClient
         webView.webChromeClient = webChromeClient
         webView.setDownloadListener(downloadListener)
@@ -170,6 +173,8 @@ class MainFragment : WebViewFragment() {
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
+            // El login ya cargó: soltar el splash de arranque (#568).
+            (activity as? MainActivity)?.contentReady = true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 CookieManager.getInstance().flush()
             }

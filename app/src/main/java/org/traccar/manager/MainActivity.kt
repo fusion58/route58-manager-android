@@ -19,21 +19,33 @@ package org.traccar.manager
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.webkit.WebViewFragment
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
 
 class MainActivity : AppCompatActivity() {
 
     var pendingEventId: Long? = null
 
+    // Splash de arranque (#568): se sostiene hasta que el login termina de cargar en la
+    // WebView (MainFragment lo pone en true desde onPageFinished), con tope de seguridad.
+    @Volatile
+    var contentReady = false
+
     private fun updateEventId(intent: Intent?) {
         intent?.getStringExtra("eventId")?.let { pendingEventId = it.toLongOrNull() }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+        // Mantener el splash hasta que la WebView cargue el login (o venza el tope).
+        splashScreen.setKeepOnScreenCondition { !contentReady }
+        Handler(Looper.getMainLooper()).postDelayed({ contentReady = true }, SPLASH_MAX_MS)
         setContentView(R.layout.activity_main)
         updateEventId(intent)
         if (savedInstanceState == null) {
@@ -71,5 +83,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val PREFERENCE_URL = "url"
+
+        // Tope de seguridad del splash: si el login tarda o no hay red, no se queda colgado.
+        private const val SPLASH_MAX_MS = 6000L
     }
 }

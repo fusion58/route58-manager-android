@@ -6,3 +6,6 @@ build/
 app/src/main/assets
 .DS_Store
 google-services.json
+keystore.properties
+*.jks
+*.keystore

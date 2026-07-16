@@ -5,6 +5,15 @@ plugins {
     id 'com.google.firebase.crashlytics'
 }
 
+// Firma de release para Google Play (#569). Las credenciales viven en keystore.properties
+// (gitignored, fuera del repo). Si el archivo no existe (p.ej. en CI sin secretos), el
+// release se arma sin firmar y no rompe el build.
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def keystoreProperties = new Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdk 35
     defaultConfig {
@@ -23,12 +32,30 @@ android {
         flavorDimensions = ['default']
         buildConfig true
     }
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+            }
+        }
+    }
     productFlavors {
         regular {
             isDefault = true
             ext.enableCrashlytics = false
         }
         google
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.release
+            }
+        }
     }
 
     compileOptions {

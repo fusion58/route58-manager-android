@@ -14,11 +14,14 @@ android {
         versionCode 42
         versionName '4.6'
         multiDexEnabled true
+        // Servidor FIJO de Route58. Único lugar para cambiarlo; el usuario no lo ve ni lo edita.
+        buildConfigField 'String', 'SERVER_URL', '"https://route.fusion58.com"'
     }
     namespace 'org.traccar.manager'
 
     buildFeatures {
         flavorDimensions = ['default']
+        buildConfig true
     }
     productFlavors {
         regular {

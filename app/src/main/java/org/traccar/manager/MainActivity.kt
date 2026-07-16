@@ -23,7 +23,6 @@ import android.webkit.WebViewFragment
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.preference.PreferenceManager
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,11 +42,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initContent() {
-        if (PreferenceManager.getDefaultSharedPreferences(this).contains(PREFERENCE_URL)) {
-            fragmentManager.beginTransaction().add(android.R.id.content, MainFragment()).commit()
-        } else {
-            fragmentManager.beginTransaction().add(android.R.id.content, StartFragment()).commit()
-        }
+        // Route58 apunta SIEMPRE a su propio servidor (BuildConfig.SERVER_URL). El usuario no
+        // elige servidor ni ve pantalla de configuración: va directo al login (#136).
+        fragmentManager.beginTransaction().add(android.R.id.content, MainFragment()).commit()
     }
 
     override fun onNewIntent(intent: Intent?) {

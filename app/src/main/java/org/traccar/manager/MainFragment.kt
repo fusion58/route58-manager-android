@@ -34,7 +34,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
-import androidx.preference.PreferenceManager
 
 class MainFragment : WebViewFragment() {
 
@@ -57,12 +56,8 @@ class MainFragment : WebViewFragment() {
                 }
             } else if (message.startsWith("logout")) {
                 SecurityManager.deleteToken(activity)
-            } else if (message.startsWith("server")) {
-                val url = message.substring(7)
-                PreferenceManager.getDefaultSharedPreferences(activity)
-                    .edit().putString(MainActivity.PREFERENCE_URL, url).apply()
-                activity.runOnUiThread { loadPage() }
             }
+            // Nota: se quitó el mensaje "server" — Route58 no permite cambiar de servidor (#136).
         }
     }
 
@@ -92,21 +87,15 @@ class MainFragment : WebViewFragment() {
     }
 
     private fun loadPage() {
-        val url = PreferenceManager.getDefaultSharedPreferences(activity)
-            .getString(MainActivity.PREFERENCE_URL, null)
-        if (url != null) {
-            val mainActivity = activity as? MainActivity
-            val eventId = mainActivity?.pendingEventId
-            mainActivity?.pendingEventId = null
-            if (eventId != null) {
-                webView.loadUrl("$url?eventId=$eventId")
-            } else {
-                webView.loadUrl(url)
-            }
+        // Servidor FIJO de Route58 — no se lee de preferencias ni se puede cambiar (#136).
+        val url = BuildConfig.SERVER_URL
+        val mainActivity = activity as? MainActivity
+        val eventId = mainActivity?.pendingEventId
+        mainActivity?.pendingEventId = null
+        if (eventId != null) {
+            webView.loadUrl("$url?eventId=$eventId")
         } else {
-            activity.fragmentManager
-                .beginTransaction().replace(android.R.id.content, StartFragment())
-                .commitAllowingStateLoss()
+            webView.loadUrl(url)
         }
     }
 

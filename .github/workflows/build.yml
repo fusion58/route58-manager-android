@@ -34,8 +34,12 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Configurar Android SDK
-        uses: android-actions/setup-android@v3
+      # El runner ubuntu-24.04 ya trae el Android SDK preinstalado ($ANDROID_HOME).
+      # Evitamos android-actions/setup-android@v3: desde ~2026-10 re-descarga cmdline-tools
+      # y 'sdkmanager --licenses' sale con código 1, rompiendo el build. Solo aceptamos
+      # las licencias con el SDK preinstalado.
+      - name: Aceptar licencias del Android SDK preinstalado
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
 
       - name: Compilar Route58 (flavor google, con push)
         run: ./gradlew assembleRoute58GoogleDebug --stacktrace

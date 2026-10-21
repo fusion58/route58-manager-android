@@ -21,7 +21,10 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Fijado a 24.04: `ubuntu-latest` empezó a migrar a Ubuntu 26 el 2026-10-19 y rompió
+    # android-actions/setup-android (sdkmanager --licenses exit 1). 24.04 es el entorno
+    # con el que el build pasaba. Revisar al estabilizarse el runner 26.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 

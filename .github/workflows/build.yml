@@ -1,9 +1,14 @@
-name: Build Route58 Manager
+name: Build Route58 / Motrack Manager
 
-# Compila la app Route58 Manager en cada cambio, para verificar que
-# arma bien tras el branding. Compila el flavor `google` (con Firebase/push), que ya tiene
-# su `google-services.json` propio (proyecto Firebase route58-26b39, en
-# environment/google-services/). El APK de depuración queda como artefacto descargable.
+# Compila las apps en cada cambio, para verificar que arman bien tras el branding.
+# Dos marcas (dimensión `brand`, #709):
+#   - Route58  -> flavor `google` (con Firebase/push); json route58-26b39 ya registrado.
+#   - Motrack  -> flavor `regular` POR AHORA (sin Firebase). Para encender el push de Motrack
+#                 hay que registrar el paquete com.fusion58.motrack.manager en el MISMO
+#                 proyecto Firebase (route58-26b39) y actualizar environment/google-services/
+#                 route58-manager-android.json con ambos paquetes; luego cambiar aquí a
+#                 `assembleMotrackGoogleDebug`.
+# Los APK de depuración quedan como artefactos descargables.
 
 on:
   push:
@@ -16,7 +21,10 @@ permissions:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    # Fijado a 24.04: `ubuntu-latest` empezó a migrar a Ubuntu 26 el 2026-10-19 y rompió
+    # android-actions/setup-android (sdkmanager --licenses exit 1). 24.04 es el entorno
+    # con el que el build pasaba. Revisar al estabilizarse el runner 26.
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
 
@@ -26,15 +34,29 @@ jobs:
           distribution: temurin
           java-version: '17'
 
-      - name: Configurar Android SDK
-        uses: android-actions/setup-android@v3
+      # El runner ubuntu-24.04 ya trae el Android SDK preinstalado ($ANDROID_HOME).
+      # Evitamos android-actions/setup-android@v3: desde ~2026-10 re-descarga cmdline-tools
+      # y 'sdkmanager --licenses' sale con código 1, rompiendo el build. Solo aceptamos
+      # las licencias con el SDK preinstalado.
+      - name: Aceptar licencias del Android SDK preinstalado
+        run: yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
 
-      - name: Compilar APK de depuración (flavor google, con push)
-        run: ./gradlew assembleGoogleDebug --stacktrace
+      - name: Compilar Route58 (flavor google, con push)
+        run: ./gradlew assembleRoute58GoogleDebug --stacktrace
 
-      - name: Publicar el APK como artefacto
+      - name: Compilar Motrack (flavor regular, sin push por ahora)
+        run: ./gradlew assembleMotrackRegularDebug --stacktrace
+
+      - name: Publicar APK de Route58
         uses: actions/upload-artifact@v4
         with:
           name: route58-manager-debug
-          path: app/build/outputs/apk/google/debug/*.apk
+          path: app/build/outputs/apk/route58Google/debug/*.apk
+          if-no-files-found: warn
+
+      - name: Publicar APK de Motrack
+        uses: actions/upload-artifact@v4
+        with:
+          name: motrack-manager-debug
+          path: app/build/outputs/apk/motrackRegular/debug/*.apk
           if-no-files-found: warn

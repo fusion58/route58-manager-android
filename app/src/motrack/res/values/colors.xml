@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Paleta Motrack (#218/#712): verde NEÓN del casco sobre asfalto oscuro. Sobrescribe
+         la de Route58 (main) para los builds del flavor `motrack`. -->
+    <color name="primary">#39FF14</color>       <!-- verde del casco Motrack -->
+    <color name="primary_dark">#1FA30C</color>  <!-- verde oscuro (barra de estado) -->
+    <color name="accent">#FF2E63</color>        <!-- magenta (alarma / anti-hurto) -->
+
+    <!-- Fondo del ícono adaptable = asfalto oscuro (mismo master oscuro del logo). -->
+    <color name="ic_launcher_background">#0D0C0A</color>
+
+    <!-- Splash de arranque: asfalto oscuro. -->
+    <color name="splash_background">#0D0C0A</color>
+
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <!-- Nombre de la app para la marca Motrack (#709). El resto de strings se heredan de main. -->
+    <string name="app_name">Motrack</string>
+</resources>

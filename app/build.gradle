@@ -17,19 +17,18 @@ if (keystorePropertiesFile.exists()) {
 android {
     compileSdk 35
     defaultConfig {
-        applicationId 'com.fusion58.route58.manager'
         minSdkVersion 21
         targetSdkVersion 35
         versionCode 42
         versionName '4.6'
         multiDexEnabled true
-        // Servidor FIJO de Route58. Único lugar para cambiarlo; el usuario no lo ve ni lo edita.
-        buildConfigField 'String', 'SERVER_URL', '"https://route.fusion58.com"'
+        // applicationId y SERVER_URL se fijan por marca en productFlavors (dimensión `brand`):
+        // route58 -> route.fusion58.com, motrack -> motrack.fusion58.com (#709).
     }
     namespace 'com.fusion58.route58.manager'
 
     buildFeatures {
-        flavorDimensions = ['default']
+        flavorDimensions = ['brand', 'default']
         buildConfig true
     }
     signingConfigs {
@@ -43,11 +42,27 @@ android {
         }
     }
     productFlavors {
+        // Dimensión `brand`: una marca por app (mismo código, distinta piel + servidor).
+        route58 {
+            dimension 'brand'
+            isDefault = true
+            applicationId 'com.fusion58.route58.manager'
+            buildConfigField 'String', 'SERVER_URL', '"https://route.fusion58.com"'
+        }
+        motrack {
+            dimension 'brand'
+            applicationId 'com.fusion58.motrack.manager'
+            buildConfigField 'String', 'SERVER_URL', '"https://motrack.fusion58.com"'
+        }
+        // Dimensión `default`: regular (sin Firebase) vs google (con push/FCM).
         regular {
+            dimension 'default'
             isDefault = true
             ext.enableCrashlytics = false
         }
-        google
+        google {
+            dimension 'default'
+        }
     }
     buildTypes {
         release {

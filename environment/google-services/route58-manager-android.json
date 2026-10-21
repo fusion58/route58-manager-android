@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:542747016920:android:283b86ff8999a885d2e1ad",
+        "android_client_info": {
+          "package_name": "com.fusion58.motrack.manager"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQzUTwI5DsH6M-CgSCFFzErZEEE3cSBKA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:542747016920:android:191df9a7b6631109d2e1ad",
         "android_client_info": {
           "package_name": "com.fusion58.route58.manager"

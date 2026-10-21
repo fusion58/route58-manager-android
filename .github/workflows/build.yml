@@ -1,13 +1,12 @@
 name: Build Route58 / Motrack Manager
 
 # Compila las apps en cada cambio, para verificar que arman bien tras el branding.
-# Dos marcas (dimensión `brand`, #709):
-#   - Route58  -> flavor `google` (con Firebase/push); json route58-26b39 ya registrado.
-#   - Motrack  -> flavor `regular` POR AHORA (sin Firebase). Para encender el push de Motrack
-#                 hay que registrar el paquete com.fusion58.motrack.manager en el MISMO
-#                 proyecto Firebase (route58-26b39) y actualizar environment/google-services/
-#                 route58-manager-android.json con ambos paquetes; luego cambiar aquí a
-#                 `assembleMotrackGoogleDebug`.
+# Dos marcas (dimensión `brand`, #709), ambas con flavor `google` (Firebase/push):
+#   - Route58  -> com.fusion58.route58.manager
+#   - Motrack  -> com.fusion58.motrack.manager
+# Ambos paquetes están registrados en el MISMO proyecto Firebase (route58-26b39) y el
+# google-services.json (environment/google-services/route58-manager-android.json) los lista
+# a los dos; el plugin elige el correcto por variante.
 # Los APK de depuración quedan como artefactos descargables.
 
 on:
@@ -44,8 +43,8 @@ jobs:
       - name: Compilar Route58 (flavor google, con push)
         run: ./gradlew assembleRoute58GoogleDebug --stacktrace
 
-      - name: Compilar Motrack (flavor regular, sin push por ahora)
-        run: ./gradlew assembleMotrackRegularDebug --stacktrace
+      - name: Compilar Motrack (flavor google, con push)
+        run: ./gradlew assembleMotrackGoogleDebug --stacktrace
 
       - name: Publicar APK de Route58
         uses: actions/upload-artifact@v4
@@ -58,5 +57,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: motrack-manager-debug
-          path: app/build/outputs/apk/motrackRegular/debug/*.apk
+          path: app/build/outputs/apk/motrackGoogle/debug/*.apk
           if-no-files-found: warn

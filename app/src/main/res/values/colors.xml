@@ -2,9 +2,9 @@
 <resources>
 
     <!-- Paleta Route58 / Fusión58 (branding app propia, #136). -->
-    <color name="primary">#FF8C2C</color>       <!-- naranja Route58 -->
-    <color name="primary_dark">#C96A15</color>  <!-- naranja oscuro (barra de estado) -->
-    <color name="accent">#F50057</color>        <!-- magenta (el "58") -->
+    <color name="primary">#EE7C1F</color>       <!-- ocre Route58 (estándar de marca, igual que iA58) -->
+    <color name="primary_dark">#BE6319</color>  <!-- ocre oscuro (barra de estado) -->
+    <color name="accent">#FB4B6E</color>        <!-- magenta del "58" (logo de fusion58.com) -->
 
     <!-- Fondo del ícono adaptable = oscuro corporativo (igual que el master del logo). -->
     <color name="ic_launcher_background">#0D0C0A</color>

@@ -2,6 +2,7 @@
 
 - `icono-512.png`: ícono de tienda 512×512 (fondo #0D0C0A + marca Route58).
 - `feature-graphic-1024x500.png`: gráfico de portada con la paleta de marca (ocre #EE7C1F, magenta #FB4B6E).
+- motrack/: ícono 512 y feature graphic de Motrack (verde neón #39FF14).
 - **Faltan las capturas** (mínimo 2 de teléfono, 1080×1920 o similar): tomarlas de la app real mostrando mapa, lista de dispositivos y notificaciones.
 
 ## Build del AAB (Google Play)
@@ -27,3 +28,4 @@ El AAB **no se versiona** (es binario de entrega); se sube al Play Console y se 
 ## Ramas
 
 `origin/master` es el espejo del Traccar Manager original (`org.traccar.manager`); **no** es la app de Fusión58. La app brandeada vive en `origin/brand-estandar-ocre-58` (colores de marca) y de ahí sale la rama de release `rel/play-4.7` con los cambios de API 36/versión.
+

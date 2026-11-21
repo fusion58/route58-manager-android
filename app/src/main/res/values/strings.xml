@@ -6,4 +6,9 @@
     <string name="permission_location_rationale">La app necesita permiso de ubicación para mostrar tu posición actual en el mapa</string>
     <string name="biometric_title">Inicio de sesión biométrico</string>
     <string name="biometric_cancel">Usar la contraseña de tu cuenta</string>
+    <string name="sin_conexion_titulo">Sin conexión</string>
+    <string name="sin_conexion_texto">No pudimos conectar con el servidor. Revisa tu conexión e inténtalo de nuevo.</string>
+    <string name="sin_conexion_reintentar">Reintentar</string>
+    <string name="sin_conexion_ajustes">Revisar conexión</string>
 </resources>
+

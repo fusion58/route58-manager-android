@@ -19,8 +19,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 36
-        versionCode 43
-        versionName '4.7'
+        versionCode 44
+        versionName '4.8'
         multiDexEnabled true
         // applicationId y SERVER_URL se fijan por marca en productFlavors (dimensión `brand`):
         // route58 -> route.fusion58.com, motrack -> motrack.fusion58.com (#709).
@@ -113,4 +113,5 @@ afterEvaluate {
         }
     }
 }
+
 

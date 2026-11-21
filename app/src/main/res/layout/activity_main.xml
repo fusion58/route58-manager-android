@@ -4,4 +4,68 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@android:id/content"
-    tools:context=".MainActivity" />
+    android:background="@color/splash_background"
+    tools:context=".MainActivity">
+
+    <!-- La WebView vive acá (el fragmento se agrega a este contenedor). -->
+    <FrameLayout
+        android:id="@+id/contenido"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!-- Pantalla nativa de error/offline: se muestra encima cuando la WebView no carga. -->
+    <LinearLayout
+        android:id="@+id/sin_conexion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp"
+        android:background="@color/splash_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@mipmap/ic_launcher"
+            android:contentDescription="@string/app_name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/sin_conexion_titulo"
+            android:textColor="#FBF8F3"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/sin_conexion_texto"
+            android:textColor="#B8B0A0"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/boton_reintentar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@string/sin_conexion_reintentar"
+            android:textColor="#0D0C0A"
+            android:backgroundTint="@color/primary" />
+
+        <Button
+            android:id="@+id/boton_ajustes_red"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text="@string/sin_conexion_ajustes"
+            android:textColor="#B8B0A0" />
+    </LinearLayout>
+</FrameLayout>

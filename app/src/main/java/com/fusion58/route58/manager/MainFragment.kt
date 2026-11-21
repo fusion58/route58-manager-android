@@ -169,12 +169,52 @@ class MainFragment : WebViewFragment() {
     private var geolocationRequestOrigin: String? = null
     private var geolocationCallback: GeolocationPermissions.Callback? = null
 
+    // Marca si la última carga de la página principal falló (para no ocultar la pantalla nativa).
+    @Volatile
+    private var errorPagina = false
+
+    fun recargar() {
+        errorPagina = false
+        loadPage()
+    }
+
     private val webViewClient = object : WebViewClient() {
+
+        override fun onPageStarted(view: WebView?, url: String?, favicon: android.graphics.Bitmap?) {
+            super.onPageStarted(view, url, favicon)
+            errorPagina = false
+        }
+
+        override fun onReceivedError(view: WebView?, request: WebResourceRequest?, error: WebResourceError?) {
+            super.onReceivedError(view, request, error)
+            if (request?.isForMainFrame == true) {
+                errorPagina = true
+                (activity as? MainActivity)?.mostrarSinConexion()
+            }
+        }
+
+        // API 21–22: el callback nuevo todavía no existe.
+        override fun onReceivedError(view: WebView?, errorCode: Int, description: String?, failingUrl: String?) {
+            super.onReceivedError(view, errorCode, description, failingUrl)
+            if (failingUrl != null && failingUrl.startsWith(BuildConfig.SERVER_URL)) {
+                errorPagina = true
+                (activity as? MainActivity)?.mostrarSinConexion()
+            }
+        }
+
+        override fun onReceivedHttpError(view: WebView?, request: WebResourceRequest?, errorResponse: WebResourceResponse?) {
+            super.onReceivedHttpError(view, request, errorResponse)
+            if (request?.isForMainFrame == true && (errorResponse?.statusCode ?: 0) >= 500) {
+                errorPagina = true
+                (activity as? MainActivity)?.mostrarSinConexion()
+            }
+        }
 
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             // El login ya cargó: soltar el splash de arranque (#568).
             (activity as? MainActivity)?.contentReady = true
+            if (!errorPagina) (activity as? MainActivity)?.ocultarSinConexion()
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 CookieManager.getInstance().flush()
             }

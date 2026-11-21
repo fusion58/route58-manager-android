@@ -15,12 +15,12 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    compileSdk 35
+    compileSdk 36
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 35
-        versionCode 42
-        versionName '4.6'
+        targetSdkVersion 36
+        versionCode 44
+        versionName '4.8'
         multiDexEnabled true
         // applicationId y SERVER_URL se fijan por marca en productFlavors (dimensión `brand`):
         // route58 -> route.fusion58.com, motrack -> motrack.fusion58.com (#709).
@@ -113,3 +113,5 @@ afterEvaluate {
         }
     }
 }
+
+

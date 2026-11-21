@@ -12,3 +12,5 @@ keystore.properties
 
 # Google Drive junk
 desktop.ini
+
+dist/

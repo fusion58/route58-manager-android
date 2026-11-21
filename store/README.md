@@ -14,7 +14,7 @@ robocopy "C:\Users\admin\Mi unidad\Work\Fusion58\route58-manager-android" C:\dev
 C:\Android\Sdk\cmdline-tools\latest\bin\sdkmanager.bat "platforms;android-36" "build-tools;36.0.0"
 ```
 
-En la copia: AGP `8.10.1`, `compileSdk 36`, `targetSdkVersion 36`, `versionCode 43`, `versionName '4.7'`.
+En la copia: AGP `8.10.1`, `compileSdk 36`, `targetSdkVersion 36`, `versionCode 44`, `versionName '4.8'`.
 `keystore.properties` (ignorado por git) con `storeFile` en barras normales y ruta absoluta al `.jks` de `SyncIA/secrets/android/`.
 
 ```powershell
@@ -28,4 +28,5 @@ El AAB **no se versiona** (es binario de entrega); se sube al Play Console y se 
 ## Ramas
 
 `origin/master` es el espejo del Traccar Manager original (`org.traccar.manager`); **no** es la app de Fusión58. La app brandeada vive en `origin/brand-estandar-ocre-58` (colores de marca) y de ahí sale la rama de release `rel/play-4.7` con los cambios de API 36/versión.
+
 

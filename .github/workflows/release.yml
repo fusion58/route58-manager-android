@@ -1,0 +1,63 @@
+name: Release AAB (Google Play)
+
+# Compila un AAB firmado para subir a Google Play. Manual: Actions → Run workflow.
+# Secretos requeridos (Settings → Secrets and variables → Actions):
+#   ANDROID_KEYSTORE_BASE64  (base64 del .jks de upload)
+#   ANDROID_STORE_PASSWORD   (password del keystore)
+#   ANDROID_KEY_ALIAS        (alias de la clave)
+#   ANDROID_KEY_PASSWORD     (password de la clave)
+on:
+  workflow_dispatch:
+    inputs:
+      flavor:
+        description: 'Marca a compilar'
+        required: true
+        default: 'route58'
+        type: choice
+        options: [route58, motrack]
+
+permissions:
+  contents: read
+
+jobs:
+  bundle:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configurar JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Instalar SDK 36
+        run: |
+          yes | "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" --licenses > /dev/null 2>&1 || true
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Keystore de upload
+        run: |
+          echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > route58-upload.jks
+          cat > keystore.properties <<EOF
+          storeFile=${{ github.workspace }}/route58-upload.jks
+          storePassword=${{ secrets.ANDROID_STORE_PASSWORD }}
+          keyAlias=${{ secrets.ANDROID_KEY_ALIAS }}
+          keyPassword=${{ secrets.ANDROID_KEY_PASSWORD }}
+          EOF
+
+      - name: Compilar AAB
+        run: |
+          if [ "${{ inputs.flavor }}" = "motrack" ]; then
+            ./gradlew --no-daemon bundleMotrackGoogleRelease
+          else
+            ./gradlew --no-daemon bundleRoute58GoogleRelease
+          fi
+
+      - name: Publicar AAB
+        uses: actions/upload-artifact@v4
+        with:
+          name: aab-${{ inputs.flavor }}
+          path: app/build/outputs/bundle/*GoogleRelease/*.aab
+          if-no-files-found: error
